@@ -1,0 +1,5 @@
+Vaccine,Manufacturer,Serotypes Covered,Reference #
+Vax31,Vaxcyte,"1, 2, 3, 4, 5, 6A, 6B, 7C, 7F, 8, 9N, 9V, 10A, 11A, 12F, 14, 15A, 15B, 16F, 17F, 18C, 19A, 19F, 20, 22F, 23A, 23B, 23F, 31, 33F, 35B",34
+Vax24,Vaxcyte,"1, 2, 3, 4, 5, 6A, 6B, 7F, 8, 9N, 9V, 10A, 11A, 12F, 14, 15B, 17F, 18C, 19A, 19F, 20, 22F, 23F, 33F",35
+IVT-PCV-25,Inventprise,"1, 2, 3, 4, 5, 6B, 6C, 7F, 8, 9N, 9V, 10A, 12F, 14, 15A, 15B, 16F, 18C, 19A, 19F, 22F, 23F, 24F, 33F, 35B",36
+AFX3772,"GSK, formerly Affinivax","1, 2, 3, 4, 5, 6A, 6B, 7F, 8, 9N, 9V, 10A, 11A, 12F, 14, 15B, 17F, 18C, 19A, 19F, 20B, 22F, 23F, 33F",37

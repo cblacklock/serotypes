@@ -1,0 +1,189 @@
+---
+title: "*Streptococcus pneumoniae* serotypes"
+subtitle: "*107 serotypes*"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    toc: true
+    toc_float: false
+    toc_collapsed: false
+    toc_depth: 3
+toc-title: "Table of Contents"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r,include=FALSE}
+library(DT)
+library(shiny)
+library(shinydashboard)
+library(timevis)
+library(shinyjs)
+shinyjs::useShinyjs()
+
+# Read data files
+sero <- read.csv("./Tables/Serotypes Table - Updated 1_30_25.csv")
+colnames(sero) <- c("Serogroup", "Publication Year", "Reference #")
+
+vax <- read.csv("./Tables/Vaccine_Table _1_30_25.csv")
+colnames(vax) <- c("Vaccine", "Commercial Name", "Manufacturer", "Year Licensed", "Serotypes Covered", "Reference #")
+
+vax_indev <- read.csv("./Tables/Vaccine_Table_InDev-1_30_25.csv")
+colnames(vax_indev) <- c("Vaccine", "Manufacturer", "Serotypes Covered", "Reference #")
+
+cloncomp <- read.csv("./Tables/Clonal Complex- Upd 1_30_25.csv")
+colnames(cloncomp) <- c("Clonal Complex", "Serotypes", "Reference #")
+
+gpsc <- read.csv("./Tables/GPSC - GPSC_sort_upd-1-30-25.csv")
+colnames(gpsc) <- c("GPSC", "Serotypes","Reference #")
+
+mlst <- read.csv("./Tables/MLSTs - Upd 1_30_25.csv")
+colnames(mlst) <- c("Serotype", "MLST", "Sequence Type", "Reference #")
+
+ref <- read.csv("./Tables/References - Upd-1-30-25.csv")
+colnames(ref) <- c("Reference Number", "Citation")
+```
+
+# Recent Serotypes {#recent-serotypes}
+As of updates in January 2025, there have been **107 serotypes** identified
+```{r}
+# Serotypes Table
+DT::datatable(sero, options = list(lengthChange = FALSE,
+                                   columnDefs = list(
+                                     list(targets = "_all",
+                                          className = "dt-left",
+                                          autoWidth = TRUE)
+                                   )), rownames = FALSE)
+```
+# Vaccines {#vaccines}
+## Licensed
+```{r}
+# Licensed Vaccines Table
+DT::datatable(vax, options = list(lengthChange = FALSE,
+                                   columnDefs = list(
+                                     list(targets = "_all",
+                                          className = "dt-left",
+                                          autoWidth = TRUE)
+                                   )), rownames = FALSE)
+```
+
+## In Development
+```{r}
+# Vaccines in Development Table
+DT::datatable(vax_indev, options = list(lengthChange = FALSE,
+                                        columnDefs = list(
+                                          list(targets = "_all",
+                                               className = "dt-left",
+                                          autoWidth = TRUE)
+                                        )), rownames = FALSE)
+```
+
+# Multilocus Sequence Typing {#multilocus-sequence-typing}
+Multilocus sequence typing is the process for characterizing isolates of bacteria using the sequences of internal gene fragments from several established house-keeping genes. 
+
+Below is a small sampling of MLST as currently more than 1 million have been identified. Learn more from [PubMLST](https://pubmlst.org/organisms/streptococcus-pneumoniae).
+```{r}
+# MLST Table
+DT::datatable(mlst, options = list(lengthChange = FALSE,
+                                    columnDefs = list(
+                                      list(targets = "_all",
+                                           className = "dt-left",
+                                          autoWidth = TRUE)
+                                    )), rownames = FALSE)
+```
+
+# Clonal Complexes {#clonal-complexes}
+Clonal complexes describe clusters of serotypes that share similarities in their sequence types. Serotypes within the same clonal complex may exhibit similar characteristics or traits that may aid in understanding their transmission and virulence.
+
+```{r}
+# CC Table
+DT::datatable(cloncomp, options = list(lengthChange = FALSE,
+                                       columnDefs = list(
+                                         list(targets = "_all",
+                                              className = "dt-left",
+                                          autoWidth = TRUE)
+                                       )), rownames = FALSE)
+```
+
+# Global Pneumococcal Sequence Cluster {#gpsc}
+A Global Pneumococcal Sequence Cluster (GPSC) is an "international genomic definition of a pneumococcal lineage" which captures the variation across the entire genome.
+Learn more from the [Global Pneumococcal Sequencing Project](https://www.pneumogen.net/gps/#/resources#gpsc-lineages)
+```{r}
+# GPSC Table
+DT::datatable(gpsc, options = list(lengthChange = FALSE,
+                                   columnDefs = list(
+                                     list(targets = "_all",
+                                          className = "dt-left",
+                                          autoWidth = TRUE)
+                                   )), rownames = FALSE)
+```
+
+
+# History {#history}
+```{r}
+timeline <- data.frame(
+
+
+  facts = c("First discovered independently isolated by Louis Pasteur (deemed 'microbe septicemique de salive') in France from the saliva of a rabies patient as well as by George M. Sternberg in the U.S., who named it 'Micrococcus pasteuri' (Reference 52)",
+                   "Renamed 'pneumococcus' for its close association with pneumonia (Reference 52)",
+                   "Start of efforts to develop an effective pneumococcal vaccine (Reference 53)",
+            "Renamed as 'Diplococcus pneumoniae' since it was typically observed in pairs (Reference 52)",
+                   "Transformation of life demonstrated by Frederick Griffith demonstrated by turning harmless pneumococcus into a lethal form through the co-inoculation of live pneumococci into a mouse with heat-killed virulent pneumococci; this experiment played a vital role in identifying DNA as genetic material (Reference 52)",
+                   "The first 32 serotypes were described by Georgia Cooper (Reference 27)",
+                   "Danish Prince Valdemar dies of pneumonia and his failed treatment of serogroup 9 antisera revealed additional diversity in serogroup 9, allowing for the identification of serotype 9V (Reference 53)",
+                   "Start of efforts to develop a polyvalent pneumococcal vaccine (Reference 53)",
+                   "Renamed 'Streptococcus pneumoniae' for its similarities in chain formation similar to other Streptococcus spp. (Reference 52)",
+                  "First pneumococcal polysaccharide vaccine licensed in U.S., contained which antigens from 14 serotypes of pneumococci (Reference 53)",
+                  "The 23-valent polysaccharide vaccine was licensed (PPSV23), replacing the 14-valent (Reference 53)",
+                  "First conjugate pneumococcal vaccine licensed in U.S., covering 7 serotypes (PCV7) (Reference 53)",
+                  "Introduction of 13-valent pneumococcal conjugate vaccine (PCV13), covering six serotypes in addition to PCV7 (Reference 53)",
+                  "The 100th serotype, 10D, is identified (Reference 7)"),
+
+  dates = c("1881","1886", "1911", "1920", "1928", "1929", "1939", "1960s", "1974", "1977",
+            "1983", "2000", "2010", "2020")
+)
+ 
+
+library(cronologia)
+
+
+create_tml(df = timeline, # the data frame
+           smr = "dates", # the column that will be used in the summary 
+           dsc = "facts", # the column that will be used in the description
+           smr_bgcol = "#4682b4",
+           open = TRUE) 
+```
+
+# More Resources {#resources}
+Additional reference tools on *Streptococcus pneumoniae* may be found at:
+
+[PneumoWiki](https://pneumowiki.med.uni-greifswald.de/Main_Page)
+
+[PubMLST](https://pubmlst.org/organisms/streptococcus-pneumoniae)
+
+# References {#references}
+```{r}
+# Ref Table
+DT::datatable(ref, options = list(lengthChange = FALSE,
+                                  columnDefs = list(
+                                    list(targets = "_all",
+                                         className = "dt-left",
+                                          autoWidth = TRUE)
+                                  )), rownames = FALSE)
+```
+# About Us {#about-us}
+This reference tool was created by Chessley B. Blacklock, [Daniel M. Weinberger](https://ysph.yale.edu/profile/daniel-weinberger/), [Stephanie Perniciaro](https://ysph.yale.edu/profile/stephanie-perniciaro/), and Anne L. Wyllie at the Yale School of Public Health. This tool was last updated in January 2025.
+
+We recommend using the following citation (APA):
+
+Blacklock, C. B., Weinberger, D. M., Perniciaro, S., & Wyllie, A. L. (2024). *Streptococcus pneumoniae serotypes*.
+https://pneumococcalcapsules.github.io/serotypes/ 
+
+# Contact Us {#contact-us}
+<span style="font-size: 20px;">Do you have any questions, clarifications, updates, or references we should address?</span>
+
+<span style="font-size:20px;">[Click here](https://forms.gle/EW7dJMnrDpEyMsx78) to reach out</span>
